@@ -15,7 +15,15 @@
  * To make the second one happen, the number to change
  * is the first argument to `repeat`, currently set at 10.
  */
-const gridWidth = 10;
+const palette = document.querySelectorAll('.palette-color')
+const brush = document.querySelector('.current-brush')
+const canvas = document.querySelector('.canvas')
+canvas.style.height= '600px';
+canvas.style.width = '600px';
+canvas.style.gridTemplateRows= 'repeat(20, 1fr)';
+canvas.style.gridTemplateColumns= 'repeat(20, 1fr)';
+
+const gridWidth = 20;
 let count = 0;
 while (count <= gridWidth * gridWidth) {
   const canvas = document.querySelector('.canvas');
@@ -51,23 +59,56 @@ while (count <= gridWidth * gridWidth) {
 
 
 
+const squares = document.querySelectorAll('.square')
+
+let mouseDown=false
 /****************************
  * EVENT LISTENER FUNCTIONS *
 ****************************/
+for (const square of squares ){
+  square.addEventListener('click', (event)=>{
+    const px = event.target
+    px.classList= brush.classList
+    px.style.border='0px'
+    px.classList.add('square')
+  })
+}
 
-// Now add some functions to handle clicking one particular square
-// and clicking one particular palette color. You can leave them
-// empty at first, though a console.log just to know they're being
-// run as event listeners (after the next step is set up) isn't a
-// bad idea for testing purposes.
+for (const colors of palette){
+  colors.addEventListener('click', ()=>{
+    brush.classList=colors.classList
+  })
+}
 
+for (const square of squares ){
+  square.addEventListener('mouseenter', (event)=>{
+    if(mouseDown){
+      const px = event.target
+      // px.classList.replace(px.classList, brush.classList)
+      px.classList= brush.classList
+      px.style.border ='0px'
+      px.classList.add('square')
+  }
+})
+}
 
+document.body.addEventListener('mousedown', ()=>{
+  mouseDown=true;
+})
 
-/**************************
- * WIRING IT ALL TOGETHER *
-**************************/
+document.body.addEventListener('mouseup', ()=>{
+  mouseDown=false;
+})
 
-// Now: wiring up our event listeners to our html node elements.
-// You'll need to add the appropriate event listener for each
-// square and for each palette color from the functions you
-// wrote above.
+const clear = document.createElement('button')
+clear.innerText='Clear'
+const sectionBrush = document.querySelector('.brush')
+sectionBrush.appendChild(clear)
+
+sectionBrush.style.display = 'flex'
+sectionBrush.style.alignItems = 'center'
+clear.addEventListener('click', ()=>{
+  for (const square of squares){
+  square.className = 'square color-5'
+  }
+})
