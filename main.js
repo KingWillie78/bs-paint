@@ -15,9 +15,9 @@
  * To make the second one happen, the number to change
  * is the first argument to `repeat`, currently set at 10.
  */
-const palette = document.querySelectorAll('.palette-color')
-const brush = document.querySelector('.current-brush')
-const canvas = document.querySelector('.canvas')
+const palette = document.querySelectorAll('.palette-color');
+const brush = document.querySelector('.current-brush');
+const canvas = document.querySelector('.canvas');
 canvas.style.height= '600px';
 canvas.style.width = '600px';
 canvas.style.gridTemplateRows= 'repeat(20, 1fr)';
@@ -61,7 +61,7 @@ while (count <= gridWidth * gridWidth) {
 
 const squares = document.querySelectorAll('.square')
 
-let mouseDown=false
+let clickDown = false
 /****************************
  * EVENT LISTENER FUNCTIONS *
 ****************************/
@@ -82,7 +82,7 @@ for (const colors of palette){
 
 for (const square of squares ){
   square.addEventListener('mouseenter', (event)=>{
-    if(mouseDown){
+    if(clickDown){
       const px = event.target
       // px.classList.replace(px.classList, brush.classList)
       px.classList= brush.classList
@@ -90,25 +90,25 @@ for (const square of squares ){
       px.classList.add('square')
   }
 })
-}
+};
 
 document.body.addEventListener('mousedown', ()=>{
-  mouseDown=true;
-})
+  clickDown  =true;
+});
 
 document.body.addEventListener('mouseup', ()=>{
-  mouseDown=false;
-})
+  mouseDown = false;
+});
 
 const clear = document.createElement('button')
-clear.innerText='Clear'
+clear.innerText = 'Clear'
 const sectionBrush = document.querySelector('.brush')
 sectionBrush.appendChild(clear)
 
-sectionBrush.style.display = 'flex'
-sectionBrush.style.alignItems = 'center'
+sectionBrush.style.display = 'flex';
+sectionBrush.style.alignItems = 'center';
 clear.addEventListener('click', ()=>{
   for (const square of squares){
   square.className = 'square color-5'
   }
-})
+});
